@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
 
 /**
  * Category Database can be added here.
@@ -8,20 +8,17 @@ import { v4 as uuid } from "uuid";
 export const categories = [
   {
     _id: uuid(),
-    categoryName: "fiction",
-    description:
-      "literature in the form of prose, especially novels, that describes imaginary events and people",
+    categoryName: 'volleyball',
+    url: 'https://cdn.britannica.com/81/198481-050-10CED2D9/Gilberto-Godoy-Filho-ball-Brazil-Argentina-volleyball-2007.jpg',
   },
   {
     _id: uuid(),
-    categoryName: "non-fiction",
-    description:
-      "Non-fiction is writing that gives information or describes real events, rather than telling a story.",
+    categoryName: 'badminton',
+    url: 'https://contents.mediadecathlon.com/s992255/k$bd560195c36570898816b2b28445105b/frame%203.png?format=auto&quality=70&f=440x0',
   },
   {
     _id: uuid(),
-    categoryName: "horror",
-    description:
-      "Meant to cause discomfort and fear for both the character and readers, horror writers often make use of supernatural and paranormal elements in morbid stories that are sometimes a little too realistic.",
+    categoryName: 'cricket',
+    url: 'https://contents.mediadecathlon.com/s989750/k$a7b258c75557801bf6e36035323bc066/frame%2051.png?format=auto&quality=70&f=440x0',
   },
 ];

@@ -1,41 +1,146 @@
-import "./App.css";
-import logo from "./logo.png";
+import { Link, NavLink, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Mockman from 'mockman-js';
+import NavigationBar from './components/NavigationBar';
+import { Fav } from './pages/Fav';
+import { Cart } from './pages/Cart';
+import { Shop } from './pages/Shop';
+import { Home } from './pages/Home';
+import { SignIn } from './components/SignIn';
+import { SignUp } from './components/SignUp';
+import { SignOut } from './components/SignOut';
+import { RequireAuth } from './components/RequireAuth';
+import { UserProfile } from './components/UserProfile';
+import { ProductDetail } from './pages/ProductDetail';
+import { Icon } from '@iconify/react';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="mockBee logo" width="180" height="180" />
-        <h1 className="brand-title">
-          Welcome to <span>mockBee!</span>
-        </h1>
-        <p className="brand-description">
-          Get started by editing <code>src/App.js</code>
-        </p>
-        <div className="links">
-          <a
-            href="https://mockbee.netlify.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore mockBee
-          </a>
-          <a
-            href="https://mockbee.netlify.app/docs/api/introduction"
-            target="_blank"
-            rel="noreferrer"
-          >
-            API Documentation
-          </a>
-          <a
-            href="https://github.com/neogcamp/mockBee"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Contribute
-          </a>
-        </div>
+    <div
+      className="App"
+      style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
+    >
+      <div
+        style={{
+          backgroundColor: 'black',
+          position: 'fixed',
+          width: '100%',
+          zIndex: 1,
+          boxShadow: '0 7px 30px 0 black',
+        }}
+      >
+        <NavigationBar />
+      </div>
+      <header className="App-header" style={{ color: 'black' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/mockman" element={<Mockman />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/:productId" element={<ProductDetail />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signout" element={<SignOut />} />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <UserProfile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <RequireAuth>
+                <Cart />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/fav"
+            element={
+              <RequireAuth>
+                <Fav />
+              </RequireAuth>
+            }
+          />
+        </Routes>
       </header>
+      <footer
+        style={{
+          // position: 'relative',
+          margin: 'auto',
+          width: '100%',
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: 'black',
+            padding: '2rem 1rem',
+            textAlign: 'center',
+            color: 'white',
+
+            // position: 'absolute',
+            // bottom: 0,
+            // height: '2.5rem',
+          }}
+        >
+          <div
+            style={{ fontWeight: 'bold', fontSize: 'large', margin: '10px' }}
+          >
+            Social media
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '300px',
+              margin: 'auto',
+            }}
+          >
+            <Link
+              className="link"
+              style={{ color: 'white' }}
+              to="https://github.com/PriyanshuSinghR"
+            >
+              <Icon
+                icon="mingcute:github-fill"
+                color="white"
+                width="30"
+                height="30"
+              />
+            </Link>
+            <Link
+              className="link"
+              style={{ color: 'white' }}
+              to="https://twitter.com/Priyanshu844"
+            >
+              <Icon icon="bi:twitter" color="white" width="30" height="30" />
+            </Link>
+            <Link
+              className="link"
+              style={{ color: 'white' }}
+              to="https://www.linkedin.com/in/priyanshu844/"
+            >
+              <Icon
+                icon="cib:linkedin-in"
+                color="white"
+                width="30"
+                height="30"
+              />
+            </Link>
+            <Link className="link" style={{ color: 'white' }}>
+              <Icon
+                icon="ri:discord-fill"
+                color="white"
+                width="30"
+                height="30"
+              />
+            </Link>
+          </div>
+          <p>Copyright &copy; 2022 Priyanshu Singh • Web Developer</p>
+        </div>
+      </footer>
     </div>
   );
 }

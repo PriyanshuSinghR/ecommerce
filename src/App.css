@@ -1,5 +1,6 @@
-.App {
+body {
   text-align: center;
+  background-color: #a78bfa;
 }
 
 .App-logo {
@@ -11,20 +12,6 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #22201c;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 .brand-title {
@@ -48,4 +35,45 @@
   color: #d9d9d9;
   font-size: 1.2rem;
   margin: 1rem;
+}
+
+.link :hover {
+  color: #4700d3;
+}
+
+.card {
+  transform: scale(1);
+  opacity: 10;
+  transition: all 350ms ease-in-out;
+}
+.card:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* z-index: 2; */
+}
+
+.add-fav :hover {
+  color: red;
+}
+
+.submit-button {
+  transform: scale(1);
+  opacity: 10;
+  transition: all 150ms ease-in-out;
+}
+.submit-button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* z-index: 2; */
+}
+
+.shop-now {
+  transform: scale(1);
+  opacity: 10;
+  transition: all 150ms ease-in-out;
+}
+.shop-now:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: red;
 }
