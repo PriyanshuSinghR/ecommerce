@@ -8,7 +8,6 @@ export const SignIn = () => {
     <div
       style={{
         display: 'flex',
-        backgroundColor: '#A78BFA',
         width: '100%',
         height: '100vh',
         marginTop: '70px',

@@ -39,6 +39,7 @@ export const Shop = () => {
       style={{
         display: 'flex',
         marginTop: '100px',
+        color: 'white',
       }}
     >
       <div style={{ width: '300px' }}>

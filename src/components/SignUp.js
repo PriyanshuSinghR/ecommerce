@@ -7,7 +7,6 @@ export const SignUp = () => {
     <div
       style={{
         display: 'flex',
-        backgroundColor: '#A78BFA',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         width: '100%',
@@ -17,8 +16,6 @@ export const SignUp = () => {
     >
       <div
         style={{
-          overflowX: 'hidden',
-          overflowY: 'hidden',
           width: '100vw',
           height: '92vh',
         }}

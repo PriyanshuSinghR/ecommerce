@@ -44,7 +44,7 @@ export const UserProfile = () => {
   console.log(state.user);
 
   return (
-    <div style={{ margin: '150px', minHeight: '40vh' }}>
+    <div style={{ margin: '150px', minHeight: '40vh', color: 'white' }}>
       <h1>UserProfile</h1>
       <div
         style={{
@@ -54,7 +54,6 @@ export const UserProfile = () => {
           margin: '20px auto',
           padding: '20px',
           backgroundColor: 'black',
-          color: 'white',
         }}
       >
         <p>First Name: {firstName}</p>

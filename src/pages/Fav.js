@@ -6,7 +6,7 @@ import { CartContext } from '../context/CartContext';
 export const Fav = () => {
   const { state } = useContext(CartContext);
   return (
-    <div style={{ minHeight: '65vh', marginTop: '100px' }}>
+    <div style={{ minHeight: '65vh', marginTop: '100px', color: 'white' }}>
       <h1>MY WISHLIST</h1>
       {state.fav.length === 0 && <h2>Your Wishlist Is Empty ! ☹️</h2>}
       <div className="cards" style={{ display: 'flex', flexWrap: 'wrap' }}>
