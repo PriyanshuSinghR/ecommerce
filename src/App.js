@@ -23,14 +23,13 @@ import { CartContext } from './context/CartContext';
 
 function App() {
   const { state, dispatch } = useContext(CartContext);
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch({
-        type: 'CHANGE_LOADING',
-        payload: false,
-      });
-    }, 1000);
-  }, [state.isLoading]);
+  // useEffect(() => {
+  //   // setTimeout(() => {}, 1000);
+  //   dispatch({
+  //     type: 'CHANGE_LOADING',
+  //     payload: false,
+  //   });
+  // }, [state.isLoading]);
   return (
     <div>
       <ToastContainer
@@ -45,7 +44,8 @@ function App() {
         pauseOnHover={false}
         theme="dark"
       />
-      {state.isLoading ? (
+      {
+        /* state.isLoading ? (
         <ReactLoading
           type="spinningBubbles"
           style={{
@@ -55,7 +55,8 @@ function App() {
             backgroundColor: 'transparent',
           }}
         />
-      ) : (
+      ) :  */
+
         <div
           className="App"
           style={{
@@ -213,7 +214,7 @@ function App() {
 
           {/* <div style={{ height: '300px' }}></div> */}
         </div>
-      )}
+      }
     </div>
   );
 }

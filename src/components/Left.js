@@ -48,6 +48,7 @@ export const Left = ({ login }) => {
       console.log('Registration Successfully');
       dispatch({
         type: 'LOGIN_STATUS',
+        payload: true,
       });
       dispatch({
         type: 'ADD_USER',
@@ -78,6 +79,7 @@ export const Left = ({ login }) => {
       console.log('Sign in Successfully');
       dispatch({
         type: 'LOGIN_STATUS',
+        payload: false,
       });
       dispatch({
         type: 'ADD_USER',

@@ -1,40 +1,16 @@
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { Icon } from '@iconify/react';
 
 export const ProductDetail = () => {
-  const { productId } = useParams();
-  const [product, setProduct] = useState({});
-  const { state, dispatch, addToCart, addToFav, removeFromFav } =
+  const { state, dispatch, addToCart, addToFav, removeFromFav, getToProduct } =
     useContext(CartContext);
-  const { _id, name, url, price, discountprice, categoryName } = product;
-  const getToProduct = async () => {
-    dispatch({
-      type: 'CHANGE_LOADING',
-      payload: true,
-    });
-    try {
-      const response = await axios.get(`/api/products/${productId}`);
-      setProduct(response.data.product);
-      console.log(response);
-      dispatch({
-        type: 'CHANGE_LOADING',
-        payload: false,
-      });
-    } catch (error) {
-      console.log(error);
-      dispatch({
-        type: 'CHANGE_LOADING',
-        payload: false,
-      });
-    }
-  };
-
+  const { productId } = useParams();
   useEffect(() => {
-    getToProduct();
+    getToProduct(productId);
   }, []);
+
   return (
     <div style={{ margin: '150px', textAlign: 'center' }}>
       <div
@@ -49,7 +25,7 @@ export const ProductDetail = () => {
         }}
       >
         <img
-          src={url}
+          src={state?.product?.url}
           style={{
             width: '300px',
             height: '300px',
@@ -57,9 +33,9 @@ export const ProductDetail = () => {
           }}
         ></img>
         <div style={{ textAlign: 'left', marginLeft: '10px' }}>
-          <h2>{name}</h2>
+          <h2>{state?.product?.name}</h2>
           <p style={{ fontSize: '12px', fontWeight: 'bold' }}>
-            {categoryName?.toUpperCase()}
+            {state?.product?.categoryName?.toUpperCase()}
           </p>
           <div style={{ display: 'flex' }}>
             <p
@@ -70,10 +46,10 @@ export const ProductDetail = () => {
                 borderRadius: '0px 15px 15px 0px',
               }}
             >
-              {discountprice}
+              {state?.product?.discountprice}
             </p>
             <p style={{ textDecoration: 'line-through', padding: '10px' }}>
-              {price}
+              {state?.product?.price}
             </p>
           </div>
           <div>
@@ -83,7 +59,7 @@ export const ProductDetail = () => {
                 margin: '10px 20px',
               }}
             >
-              {state.cart.find((e) => e._id === _id) ? (
+              {state.cart.find((e) => e._id === state?.product?._id) ? (
                 <div style={{ marginBottom: '10px' }}>
                   <Link
                     to="/cart"
@@ -104,7 +80,7 @@ export const ProductDetail = () => {
                 </div>
               ) : (
                 <button
-                  onClick={() => addToCart(product)}
+                  onClick={() => addToCart(state?.product)}
                   className="button-shadow"
                   style={{
                     border: 'none',
@@ -130,9 +106,9 @@ export const ProductDetail = () => {
           <div>
             <button
               onClick={() =>
-                state.fav.find((e) => e._id === _id)
-                  ? removeFromFav(_id)
-                  : addToFav(product)
+                state.fav.find((e) => e._id === state?.product?._id)
+                  ? removeFromFav(state?.product?._id)
+                  : addToFav(state.product)
               }
               className="button-fav button-shadow"
               style={{
@@ -155,10 +131,12 @@ export const ProductDetail = () => {
                 height="20"
                 className="show-fav"
                 style={{
-                  color: state.fav.find((e) => e._id === _id) ? 'red' : '',
+                  color: state.fav.find((e) => e._id === state?.product?._id)
+                    ? 'red'
+                    : '',
                 }}
               />
-              {state.fav.find((e) => e._id === _id)
+              {state.fav.find((e) => e._id === state?.product?._id)
                 ? 'Remove From Wishlist'
                 : 'Add To Wishlist'}
             </button>

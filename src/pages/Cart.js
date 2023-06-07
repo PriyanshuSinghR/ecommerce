@@ -22,7 +22,7 @@ export const Cart = () => {
       <div style={{ display: 'flex' }}>
         <div style={{ marginLeft: '50px', width: '700px' }}>
           {state.cart.map((product) => (
-            <CartCard product={product} />
+            <CartCard product={product} key={product._id} />
           ))}
         </div>
         {state.cart.length > 0 && (

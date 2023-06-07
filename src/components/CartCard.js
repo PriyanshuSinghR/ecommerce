@@ -75,7 +75,7 @@ export const CartCard = ({ product }) => {
           <p
             style={{ margin: '10px 0px', fontSize: '12px', fontWeight: 'bold' }}
           >
-            {categoryName.toUpperCase()}
+            {categoryName?.toUpperCase()}
           </p>
           <div style={{ display: 'flex' }}>
             <p

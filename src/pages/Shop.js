@@ -27,7 +27,6 @@ export const Shop = () => {
     }
   };
 
-  console.log(state.filterTag);
   const sortedProducts = getSortedProducts(state.allProducts, state.sortBy);
   const filteredItems = getFilteredProducts(sortedProducts, state.filterTag);
   const sortedRating = getSortedRatingProducts(filteredItems, state.rating);
@@ -279,7 +278,7 @@ export const Shop = () => {
             }}
           >
             {foundProducts.map((product) => (
-              <ProductCard product={product} />
+              <ProductCard product={product} key={product._id} />
             ))}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createContext, useEffect, useReducer, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export const CartContext = createContext();
@@ -90,11 +90,17 @@ const reduceShop = (state, action) => {
         totalPrice: action.payload,
         isLoading: true,
       };
-    case 'CHANGE_LOADING':
+    case 'ADD_PRODUCT':
       return {
         ...state,
-        isLoading: action.payload,
+        product: action.payload,
+        // isLoading: true,
       };
+    // case 'CHANGE_LOADING':
+    //   return {
+    //     ...state,
+    //     isLoading: action.payload,
+    //   };
     case 'CLEAR_FILTERS':
       return {
         ...state,
@@ -117,6 +123,7 @@ export function CartProvider({ children }) {
     allProducts: [],
     filteredProducts: [],
     testProducts: [],
+    product: {},
     searchInput: '',
     filterTag: [],
     sortBy: '',
@@ -130,14 +137,10 @@ export function CartProvider({ children }) {
     allAddresses: [],
     address: {},
     totalPrice: 0,
-    isLoading: false,
+    // isLoading: false,
   });
 
   const getProducts = async () => {
-    // dispatch({
-    //   type: 'CHANGE_LOADING',
-    //   payload: true,
-    // });
     try {
       const response = await fetch('api/products');
       if (response.status === 200) {
@@ -208,7 +211,6 @@ export function CartProvider({ children }) {
 
   const addToCart = async (product) => {
     const encodedToken = localStorage.getItem('tokenuser');
-    console.log(product);
     try {
       const response = await axios.post(
         `/api/user/cart`,
@@ -222,11 +224,6 @@ export function CartProvider({ children }) {
       dispatch({
         type: 'UPDATE_CART',
         payload: response.data.cart,
-      });
-
-      dispatch({
-        type: 'LOGIN_STATUS',
-        payload: true,
       });
       toast.success('Added to cart');
       console.log(response);
@@ -283,6 +280,19 @@ export function CartProvider({ children }) {
     }
   };
 
+  const getToProduct = async (productId) => {
+    try {
+      const response = await axios.get(`/api/products/${productId}`);
+      dispatch({
+        type: 'ADD_PRODUCT',
+        payload: response.data.product,
+      });
+      console.log(response.data.product);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getProducts();
     getCategories();
@@ -291,7 +301,14 @@ export function CartProvider({ children }) {
   }, [state.isLoggedIn]);
   return (
     <CartContext.Provider
-      value={{ state, dispatch, addToCart, addToFav, removeFromFav }}
+      value={{
+        state,
+        dispatch,
+        addToCart,
+        addToFav,
+        removeFromFav,
+        getToProduct,
+      }}
     >
       {children}
     </CartContext.Provider>

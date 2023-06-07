@@ -35,12 +35,12 @@ const NavigationBar = () => {
       <Link
         to="/"
         style={{ textDecoration: 'none' }}
-        onClick={() =>
-          dispatch({
-            type: 'CHANGE_LOADING',
-            payload: true,
-          })
-        }
+        // onClick={() =>
+        //   dispatch({
+        //     type: 'CHANGE_LOADING',
+        //     payload: true,
+        //   })
+        // }
       >
         <h1 style={{ color: 'white' }}>Sportifest</h1>
       </Link>
@@ -83,12 +83,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
-          onClick={() =>
-            dispatch({
-              type: 'CHANGE_LOADING',
-              payload: true,
-            })
-          }
+          // onClick={() =>
+          //   dispatch({
+          //     type: 'CHANGE_LOADING',
+          //     payload: true,
+          //   })
+          // }
         >
           <Icon
             icon="material-symbols:local-mall-sharp"
@@ -122,12 +122,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
-          onClick={() =>
-            dispatch({
-              type: 'CHANGE_LOADING',
-              payload: true,
-            })
-          }
+          // onClick={() =>
+          //   dispatch({
+          //     type: 'CHANGE_LOADING',
+          //     payload: true,
+          //   })
+          // }
         >
           <Icon
             icon="ic:round-shopping-cart"
@@ -144,12 +144,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
-          onClick={() =>
-            dispatch({
-              type: 'CHANGE_LOADING',
-              payload: true,
-            })
-          }
+          // onClick={() =>
+          //   dispatch({
+          //     type: 'CHANGE_LOADING',
+          //     payload: true,
+          //   })
+          // }
         >
           <Icon
             icon="iconamoon:profile-fill"
