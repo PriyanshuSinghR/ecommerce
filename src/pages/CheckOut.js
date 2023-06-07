@@ -58,7 +58,7 @@ export const CheckOut = () => {
   console.log(state.address);
 
   return (
-    <div style={{ marginTop: '100px', minHeight: '65vh' }}>
+    <div style={{ marginTop: '100px', minHeight: '65vh', color: 'white' }}>
       <h1>Checkout</h1>
       <div style={{ display: 'flex', marginTop: '50px' }}>
         <div style={{ marginLeft: '50px', width: '700px', textAlign: 'left' }}>
@@ -125,7 +125,7 @@ export const CheckOut = () => {
               height="30"
               style={{ padding: '4px' }}
             />
-            <span style={{ padding: '10px' }}>Add Address</span>
+            <span style={{ padding: '10px', color: 'white' }}>Add Address</span>
           </div>
 
           {isOpen && (

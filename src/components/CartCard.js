@@ -7,7 +7,7 @@ import { Icon } from '@iconify/react';
 export const CartCard = ({ product }) => {
   const { _id, name, url, price, discountprice, categoryName, qty } = product;
 
-  const { dispatch } = useContext(CartContext);
+  const { state, dispatch, removeFromFav, addToFav } = useContext(CartContext);
   const removeFromCart = async (_id) => {
     const encodedToken = localStorage.getItem('tokenuser');
     try {
@@ -68,7 +68,7 @@ export const CartCard = ({ product }) => {
         <img
           src={url}
           alt={name}
-          style={{ width: '200px', height: '200px' }}
+          style={{ width: '230px', height: '230px' }}
         ></img>
         <div style={{ textAlign: 'left', marginLeft: '20px' }}>
           <h3 style={{ margin: '10px 0px' }}>{name}</h3>
@@ -96,38 +96,79 @@ export const CartCard = ({ product }) => {
       </Link>
       <div
         style={{
-          color: 'white',
-          width: '400px',
           position: 'absolute',
-          bottom: '30px',
-          left: '250px',
+          bottom: '0px',
+          left: '280px',
           right: 0,
-          display: 'flex',
-          height: '25px',
         }}
       >
-        <span style={{ marginRight: '10px' }}>Quantity:</span>
-        <Icon
-          icon="teenyicons:minus-circle-solid"
-          color="white"
-          width="30"
-          height="30"
+        <div
+          style={{
+            color: 'white',
+            width: '400px',
+
+            display: 'flex',
+            height: '25px',
+          }}
+        >
+          <span style={{ marginRight: '10px' }}>Quantity:</span>
+          <Icon
+            icon="teenyicons:minus-circle-solid"
+            color="white"
+            width="30"
+            height="30"
+            onClick={() =>
+              qty > 1 ? countFromCart(_id, 'decrement') : removeFromCart(_id)
+            }
+            className="link"
+          />
+
+          <p style={{ width: '25px', margin: '0px', padding: '5px' }}>{qty}</p>
+
+          <Icon
+            icon="teenyicons:plus-circle-solid"
+            color="white"
+            width="30"
+            height="30"
+            onClick={() => countFromCart(_id, 'increment')}
+            className="link"
+          />
+        </div>
+        <button
           onClick={() =>
-            qty > 1 ? countFromCart(_id, 'decrement') : removeFromCart(_id)
+            state.fav.find((e) => e._id === _id)
+              ? removeFromFav(_id)
+              : addToFav(product)
           }
-          className="link"
-        />
-
-        <p style={{ width: '25px', margin: '0px', padding: '5px' }}>{qty}</p>
-
-        <Icon
-          icon="teenyicons:plus-circle-solid"
-          color="white"
-          width="30"
-          height="30"
-          onClick={() => countFromCart(_id, 'increment')}
-          className="link"
-        />
+          className="button-fav button-shadow"
+          style={{
+            margin: '10px 20px',
+            width: '300px',
+            cursor: 'pointer',
+            zIndex: 10,
+            border: 'none',
+            color: 'white',
+            backgroundColor: 'purple',
+            padding: '10px',
+            borderRadius: '10px',
+            marginTop: '30px',
+            marginRight: '50px',
+          }}
+        >
+          <Icon
+            icon="mdi:favorite"
+            color="gray"
+            width="20"
+            height="20"
+            className="show-fav"
+            style={{
+              color: state.fav.find((e) => e._id === _id) ? 'red' : '',
+            }}
+          />
+          {state.fav.find((e) => e._id === _id)
+            ? 'Remove From Wishlist'
+            : 'Add To Wishlist'}
+        </button>
       </div>
 
       <Icon

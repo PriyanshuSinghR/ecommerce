@@ -89,11 +89,13 @@ export const ProductDetail = () => {
                     to="/cart"
                     style={{
                       textDecoration: 'none',
+                      display: 'block',
                       color: 'white',
                       backgroundColor: 'purple',
-                      width: '300px',
+                      width: '280px',
                       padding: '10px',
                       borderRadius: '10px',
+                      textAlign: 'center',
                     }}
                     className="button-shadow"
                   >

@@ -34,7 +34,7 @@ export const Popup = (props) => {
             position: 'absolute',
             right: '10px',
             top: '10px',
-            background: '#ededed',
+            background: 'red',
             width: '25px',
             height: '25px',
             borderRadius: '50%',

@@ -10,7 +10,7 @@ import { Shop } from './pages/Shop';
 import { Home } from './pages/Home';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
-import { SignOut } from './components/SignOut';
+
 import { RequireAuth } from './components/RequireAuth';
 import { UserProfile } from './components/UserProfile';
 import { ProductDetail } from './pages/ProductDetail';
@@ -84,7 +84,6 @@ function App() {
               <Route path="/shop/:productId" element={<ProductDetail />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/signout" element={<SignOut />} />
               <Route
                 path="/profile"
                 element={

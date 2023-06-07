@@ -17,7 +17,7 @@ export const Cart = () => {
     });
   }, []);
   return (
-    <div style={{ marginTop: '100px', minHeight: '65vh' }}>
+    <div style={{ marginTop: '100px', minHeight: '65vh', color: 'white' }}>
       <h1>MY CART({state.cart.length})</h1>
       <div style={{ display: 'flex' }}>
         <div style={{ marginLeft: '50px', width: '700px' }}>

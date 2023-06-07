@@ -4,7 +4,7 @@ import { CartContext } from '../context/CartContext';
 export const ThankYou = () => {
   const { state } = useContext(CartContext);
   return (
-    <div style={{ marginTop: '100px', minHeight: '65vh' }}>
+    <div style={{ marginTop: '100px', minHeight: '65vh', color: 'white' }}>
       <h1>Thank You</h1>
       <h3>Your order is Successfully Placed</h3>
       <div
