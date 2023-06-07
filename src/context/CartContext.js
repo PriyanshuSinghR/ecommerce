@@ -94,13 +94,13 @@ const reduceShop = (state, action) => {
       return {
         ...state,
         product: action.payload,
-        // isLoading: true,
+        isLoading: true,
       };
-    // case 'CHANGE_LOADING':
-    //   return {
-    //     ...state,
-    //     isLoading: action.payload,
-    //   };
+    case 'CHANGE_LOADING':
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     case 'CLEAR_FILTERS':
       return {
         ...state,
@@ -137,10 +137,14 @@ export function CartProvider({ children }) {
     allAddresses: [],
     address: {},
     totalPrice: 0,
-    // isLoading: false,
+    isLoading: false,
   });
 
   const getProducts = async () => {
+    // dispatch({
+    //   type: 'CHANGE_LOADING',
+    //   payload: true,
+    // });
     try {
       const response = await fetch('api/products');
       if (response.status === 200) {
