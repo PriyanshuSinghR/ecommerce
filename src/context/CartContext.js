@@ -1,13 +1,16 @@
 import axios from 'axios';
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const CartContext = createContext();
 
 const reduceShop = (state, action) => {
   switch (action.type) {
     case 'SORT':
-      return { ...state, sortBy: action.payload };
+      return { ...state, sortBy: action.payload, isLoading: true };
+    case 'SORT_RATING':
+      return { ...state, rating: action.payload, isLoading: true };
     case 'ADD_ALL_PRODUCTS':
       return {
         ...state,
@@ -38,11 +41,13 @@ const reduceShop = (state, action) => {
       return {
         ...state,
         filterTag: action.payload,
+        isLoading: true,
       };
     case 'LOGIN_STATUS':
       return {
         ...state,
-        isLoggedIn: !state.isLoggedIn,
+        isLoggedIn: action.payload || !state.isLoggedIn,
+        // isLoading: true,
       };
     case 'ADD_USER':
       return {
@@ -69,6 +74,27 @@ const reduceShop = (state, action) => {
         ...state,
         fav: action.payload,
       };
+    case 'ADD_ALL_ADDRESSES':
+      return {
+        ...state,
+        allAddresses: action.payload,
+      };
+    case 'ADD_ADDRESS':
+      return {
+        ...state,
+        address: action.payload,
+      };
+    case 'CHANGE_PRICE':
+      return {
+        ...state,
+        totalPrice: action.payload,
+        isLoading: true,
+      };
+    case 'CHANGE_LOADING':
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     case 'CLEAR_FILTERS':
       return {
         ...state,
@@ -76,6 +102,7 @@ const reduceShop = (state, action) => {
         sortBy: '',
         filterTag: [],
         price: 4000,
+        rating: '',
         filteredProducts: state.allProducts,
       };
 
@@ -94,14 +121,23 @@ export function CartProvider({ children }) {
     filterTag: [],
     sortBy: '',
     price: 4000,
+    rating: '4',
     allCategories: [],
     isLoggedIn: false,
     user: {},
     cart: [],
     fav: [],
+    allAddresses: [],
+    address: {},
+    totalPrice: 0,
+    isLoading: false,
   });
 
   const getProducts = async () => {
+    // dispatch({
+    //   type: 'CHANGE_LOADING',
+    //   payload: true,
+    // });
     try {
       const response = await fetch('api/products');
       if (response.status === 200) {
@@ -110,6 +146,10 @@ export function CartProvider({ children }) {
           type: 'ADD_ALL_PRODUCTS',
           payload: await products.products,
         });
+        // dispatch({
+        //   type: 'CHANGE_LOADING',
+        //   payload: false,
+        // });
       }
     } catch (e) {
       console.error(e);
@@ -183,11 +223,19 @@ export function CartProvider({ children }) {
         type: 'UPDATE_CART',
         payload: response.data.cart,
       });
-      console.log(response.data.cart);
+
+      dispatch({
+        type: 'LOGIN_STATUS',
+        payload: true,
+      });
+      toast.success('Added to cart');
+      console.log(response);
     } catch (error) {
       console.log(error);
-      window.alert('Please First Sign In ');
-      history('/signin');
+      toast.warning('Please First Sign In');
+      setTimeout(() => {
+        history('/signin');
+      }, 2000);
     }
   };
   const addToFav = async (product) => {
@@ -206,12 +254,14 @@ export function CartProvider({ children }) {
         type: 'UPDATE_FAV',
         payload: response.data.wishlist,
       });
+      toast.success('Added to Wishlist');
       console.log(response.data.wishlist);
     } catch (error) {
       console.log(error);
-      window.alert('Please First Sign In ');
-
-      history('/signin');
+      toast.warning('Please First Sign In');
+      setTimeout(() => {
+        history('/signin');
+      }, 2000);
     }
   };
 
@@ -227,6 +277,7 @@ export function CartProvider({ children }) {
         type: 'UPDATE_FAV',
         payload: response.data.wishlist,
       });
+      toast.success('Removed from Wishlist');
     } catch (error) {
       console.log(error);
     }
@@ -237,7 +288,7 @@ export function CartProvider({ children }) {
     getCategories();
     getToCart();
     getToFav();
-  }, []);
+  }, [state.isLoggedIn]);
   return (
     <CartContext.Provider
       value={{ state, dispatch, addToCart, addToFav, removeFromFav }}

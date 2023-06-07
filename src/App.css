@@ -77,3 +77,25 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background-color: red;
 }
+
+.button-shadow:hover {
+  box-shadow: 0 0 20px purple;
+}
+
+.button-fav:hover > .show-fav {
+  color: red;
+}
+
+.form-input-field {
+  width: 100%;
+  flex-grow: 1;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  outline: none;
+  border: 2px solid rgb(172, 170, 170);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+.form-input-field:hover {
+  border: 0.125rem solid purple;
+}

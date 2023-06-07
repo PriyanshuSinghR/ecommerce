@@ -3,10 +3,12 @@ import { Icon } from '@iconify/react';
 import { CartContext } from '../context/CartContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const ProductCard = ({ product }) => {
   const history = useNavigate();
-  const { _id, name, url, price, discountprice, categoryName } = product;
+  const { _id, name, url, price, discountprice, categoryName, rating } =
+    product;
   const { state, dispatch, addToCart, addToFav, removeFromFav } =
     useContext(CartContext);
 
@@ -15,7 +17,7 @@ export const ProductCard = ({ product }) => {
       className="card"
       style={{
         width: '300px',
-        height: '530px',
+        height: '520px',
         margin: '25px',
         boxShadow: '1px 1px 10px 5px black',
         textAlign: 'left',
@@ -61,11 +63,30 @@ export const ProductCard = ({ product }) => {
           }}
         ></img>
         <div style={{ paddingLeft: '10px' }}>
-          <p
-            style={{ fontSize: '15px', fontWeight: 'bold', margin: '10px 0px' }}
-          >
-            {categoryName.toUpperCase()}
-          </p>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p
+              style={{
+                fontSize: '15px',
+                fontWeight: 'bold',
+                margin: '10px 0px',
+              }}
+            >
+              {categoryName.toUpperCase()}
+            </p>
+            <p
+              style={{
+                fontSize: '12px',
+                fontWeight: 'bold',
+                margin: '5px',
+                borderRadius: '20px',
+                backgroundColor: 'purple',
+                padding: '5px',
+              }}
+            >
+              <span style={{ marginRight: '5px' }}>{rating}</span>
+              <Icon icon="mdi:star" color="white" width="12" height="12" />
+            </p>
+          </div>
           <h1 style={{ margin: '10px 0px' }}>{name}</h1>
           <div style={{ display: 'flex' }}>
             <p
@@ -87,34 +108,35 @@ export const ProductCard = ({ product }) => {
       <div
         style={{
           position: 'absolute',
-          left: '10px',
-          bottom: '30px',
+          bottom: '15px',
           cursor: 'pointer',
-          width: '100%',
           textAlign: 'center',
+          margin: '0px 15px',
         }}
       >
         {state.cart.find((e) => e._id === _id) ? (
-          <div style={{ marginBottom: '10px' }}>
-            <Link
-              to="/cart"
-              style={{
-                textDecoration: 'none',
-                color: 'white',
-                backgroundColor: 'purple',
-
-                padding: '10px',
-                borderRadius: '10px',
-              }}
-            >
-              Go to cart
-            </Link>
-          </div>
+          <Link
+            to="/cart"
+            style={{
+              display: 'block',
+              textDecoration: 'none',
+              color: 'white',
+              backgroundColor: 'purple',
+              width: '250px',
+              padding: '10px',
+              borderRadius: '10px',
+              marginTop: '10px',
+            }}
+            className="button-shadow"
+          >
+            Go to cart
+          </Link>
         ) : (
           <button
-            onClick={() =>
-              !state.cart.find((e) => e._id === _id) && addToCart(product)
-            }
+            onClick={() => {
+              !state.cart.find((e) => e._id === _id) && addToCart(product);
+            }}
+            className="button-shadow"
             style={{
               border: 'none',
               cursor: 'pointer',
@@ -122,6 +144,8 @@ export const ProductCard = ({ product }) => {
               backgroundColor: 'purple',
               padding: '10px',
               borderRadius: '10px',
+              width: '250px',
+              margin: '0 8px',
             }}
           >
             <Icon

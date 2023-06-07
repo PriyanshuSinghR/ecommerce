@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { CartContext } from '../context/CartContext';
 
 const NavigationBar = () => {
   const { state, dispatch } = useContext(CartContext);
+  const history = useNavigate();
   useEffect(() => {
     if (state.searchInput.length > 0) {
       dispatch({
@@ -13,6 +14,7 @@ const NavigationBar = () => {
           item.name.toLowerCase().includes(state.searchInput.toLowerCase()),
         ),
       });
+      history('./shop');
     } else {
       dispatch({
         type: 'UPDATE_PRODUCTS',
@@ -30,7 +32,16 @@ const NavigationBar = () => {
         padding: '0px 20px',
       }}
     >
-      <Link to="/" style={{ textDecoration: 'none' }}>
+      <Link
+        to="/"
+        style={{ textDecoration: 'none' }}
+        onClick={() =>
+          dispatch({
+            type: 'CHANGE_LOADING',
+            payload: true,
+          })
+        }
+      >
         <h1 style={{ color: 'white' }}>Sportifest</h1>
       </Link>
       <div
@@ -72,6 +83,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
+          onClick={() =>
+            dispatch({
+              type: 'CHANGE_LOADING',
+              payload: true,
+            })
+          }
         >
           <Icon
             icon="material-symbols:local-mall-sharp"
@@ -88,6 +105,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
+          onClick={() =>
+            dispatch({
+              type: 'CHANGE_LOADING',
+              payload: true,
+            })
+          }
         >
           <Icon icon="mdi:favorite" color="white" width="30" height="30" />
         </NavLink>
@@ -99,6 +122,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
+          onClick={() =>
+            dispatch({
+              type: 'CHANGE_LOADING',
+              payload: true,
+            })
+          }
         >
           <Icon
             icon="ic:round-shopping-cart"
@@ -115,6 +144,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
+          onClick={() =>
+            dispatch({
+              type: 'CHANGE_LOADING',
+              payload: true,
+            })
+          }
         >
           <Icon
             icon="iconamoon:profile-fill"

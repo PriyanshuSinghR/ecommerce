@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const UserProfile = () => {
   const history = useNavigate();
@@ -9,11 +10,13 @@ export const UserProfile = () => {
   const { firstName, lastName, email } = state.user;
   const logoutHandler = () => {
     localStorage.removeItem('tokenuser');
+    toast.success('Logout Successfully');
     dispatch({
       type: 'REMOVE_USER',
     });
     dispatch({
       type: 'LOGIN_STATUS',
+      payload: false,
     });
     dispatch({
       type: 'UPDATE_CART',
@@ -22,6 +25,18 @@ export const UserProfile = () => {
     dispatch({
       type: 'UPDATE_FAV',
       payload: [],
+    });
+    dispatch({
+      type: 'ADD_ADDRESS',
+      payload: {},
+    });
+    dispatch({
+      type: 'ADD_ALL_ADDRESSES',
+      payload: [],
+    });
+    dispatch({
+      type: 'CHANGE_PRICE',
+      payload: 0,
     });
     history('/');
   };

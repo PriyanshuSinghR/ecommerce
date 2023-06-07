@@ -11,6 +11,9 @@ export const getSortedProducts = (products, sortBy) => {
 
   return products;
 };
+export const getSortedRatingProducts = (products, rating) => {
+  return [...products].filter((item) => item.rating >= rating);
+};
 
 export const getSearchedProducts = (products, searchText) => {
   return products?.filter((item) =>

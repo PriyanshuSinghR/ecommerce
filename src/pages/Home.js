@@ -3,6 +3,7 @@ import image from '../img/home1.jpeg';
 import heading from '../img/heading.png';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { toast } from 'react-toastify';
 
 export const Home = () => {
   const { state, dispatch } = useContext(CartContext);
@@ -51,7 +52,7 @@ export const Home = () => {
       </div>
       <img src={image} style={{ width: '100%', height: '90vh' }}></img>
       <div style={{ margin: '50px 0px' }}>
-        <div style={{ backgroundColor: 'black', marginBottom: '50px' }}>
+        <div style={{ marginBottom: '50px' }}>
           <img src={heading} style={{ width: '50%', height: '100px' }}></img>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -65,12 +66,12 @@ export const Home = () => {
                 color: 'white',
               }}
               to="/shop"
-              onClick={() =>
+              onClick={() => {
                 dispatch({
                   type: 'FILTER_BY_TAG',
                   payload: [category.categoryName],
-                })
-              }
+                });
+              }}
             >
               <img
                 src={category.url}

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CartContext } from '../context/CartContext';
 import { ProductCard } from '../components/ProductCard';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import {
   getFilteredProducts,
   getSearchedProducts,
   getSortedProducts,
+  getSortedRatingProducts,
 } from '../utils';
 
 export const Shop = () => {
@@ -29,9 +30,9 @@ export const Shop = () => {
   console.log(state.filterTag);
   const sortedProducts = getSortedProducts(state.allProducts, state.sortBy);
   const filteredItems = getFilteredProducts(sortedProducts, state.filterTag);
-  const filteredPrice = getFilteredPriceProducts(filteredItems, state.price);
+  const sortedRating = getSortedRatingProducts(filteredItems, state.rating);
+  const filteredPrice = getFilteredPriceProducts(sortedRating, state.price);
   const foundProducts = getSearchedProducts(filteredPrice, state.searchInput);
-  // console.log(state.price);
 
   return (
     <div
@@ -45,9 +46,9 @@ export const Shop = () => {
           <b style={{ marginRight: '10px' }}>Sort By</b>
           <select
             value={state.sortBy}
-            onChange={(event) =>
-              dispatch({ type: 'SORT', payload: event.target.value })
-            }
+            onChange={(event) => {
+              dispatch({ type: 'SORT', payload: event.target.value });
+            }}
             style={{ padding: '5px', borderRadius: '5px' }}
           >
             <option value="ALL">All</option>
@@ -56,16 +57,42 @@ export const Shop = () => {
           </select>
         </div>
         <div style={{ padding: '1rem', width: '300px' }}>
-          <h3 style={{ textAlign: 'left' }}>FILTERS:-</h3>
           <div
             style={{
-              border: '1px solid',
-              backgroundColor: 'white',
+              textAlign: 'left',
+              marginBottom: '20px',
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <h3>FILTERS:-</h3>
+            <button
+              onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}
+              style={{
+                color: 'white',
+                cursor: 'pointer',
+                border: 'none',
+                padding: '5px',
+                backgroundColor: 'black',
+                height: '30px',
+                margin: '15px 0px',
+              }}
+              className="button-shadow"
+            >
+              Clear Filters
+            </button>
+          </div>
+          <div
+            style={{
+              border: '3px solid purple',
+              backgroundColor: 'black',
+              color: 'white',
               width: '100%',
               marginBottom: '20px',
               textAlign: 'left',
               padding: '0.5rem',
               paddingBottom: '10px',
+              boxShadow: '1px 1px 10px black',
             }}
           >
             <h3>Price</h3>
@@ -108,12 +135,14 @@ export const Shop = () => {
           </div>
           <div
             style={{
-              border: '1px solid',
-              backgroundColor: 'white',
+              border: '3px solid purple',
+              backgroundColor: 'black',
+              color: 'white',
               width: '100%',
               marginBottom: '20px',
               textAlign: 'left',
               padding: '0.5rem',
+              boxShadow: '1px 1px 10px black',
             }}
           >
             <h3>CATEGORIES</h3>
@@ -141,19 +170,95 @@ export const Shop = () => {
               ))}
             </div>
           </div>
-
-          <button
-            onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}
+          <div
             style={{
+              border: '3px solid purple',
+              backgroundColor: 'black',
+              width: '100%',
+              marginBottom: '20px',
+              textAlign: 'left',
+              padding: '0.5rem',
+              boxShadow: '1px 1px 10px black',
               color: 'white',
-              cursor: 'pointer',
-              border: 'none',
-              padding: '10px',
-              backgroundColor: 'purple',
             }}
           >
-            Clear Filters
-          </button>
+            <h3>RATING</h3>
+            <div
+              style={{
+                // paddingLeft: '10px',
+                width: '90%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-evenly',
+                height: '150px',
+              }}
+            >
+              <div>
+                <input
+                  type="radio"
+                  name="rating"
+                  value="1"
+                  checked={state.rating === '1'}
+                  onChange={(event) =>
+                    dispatch({
+                      type: 'SORT_RATING',
+                      payload: event.target.value,
+                    })
+                  }
+                  style={{ cursor: 'pointer' }}
+                />
+                1 Stars & above
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="rating"
+                  value="2"
+                  checked={state.rating === '2'}
+                  onChange={(event) =>
+                    dispatch({
+                      type: 'SORT_RATING',
+                      payload: event.target.value,
+                    })
+                  }
+                  style={{ cursor: 'pointer' }}
+                />
+                2 Stars & above
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="rating"
+                  value="3"
+                  checked={state.rating === '3'}
+                  onChange={(event) =>
+                    dispatch({
+                      type: 'SORT_RATING',
+                      payload: event.target.value,
+                    })
+                  }
+                  style={{ cursor: 'pointer' }}
+                />
+                3 Stars & above
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="rating"
+                  value="4"
+                  checked={state.rating === '4'}
+                  onChange={(event) =>
+                    dispatch({
+                      type: 'SORT_RATING',
+                      payload: event.target.value,
+                    })
+                  }
+                  style={{ cursor: 'pointer' }}
+                />
+                4 Stars & above
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div style={{ marginLeft: '60px', width: '100%', marginBottom: '50px' }}>

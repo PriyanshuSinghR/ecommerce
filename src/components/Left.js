@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { toast } from 'react-toastify';
 
 export const Left = ({ login }) => {
   const navigate = useNavigate();
@@ -40,10 +41,10 @@ export const Left = ({ login }) => {
     console.log(res);
     console.log(state.user);
     if (res.status === 422 || !data) {
-      window.alert('Invalid Registration');
+      toast.error('Invalid Registration');
       console.log('Invalid Registration');
     } else {
-      window.alert('Registration Successfully');
+      toast.success('Registration Successfully');
       console.log('Registration Successfully');
       dispatch({
         type: 'LOGIN_STATUS',
@@ -70,10 +71,10 @@ export const Left = ({ login }) => {
 
     console.log(JSON.stringify({ email, password }));
     if (res.status === 404 || res.status === 401 || !data) {
-      window.alert('Invalid Credential');
+      toast.error('Invalid Credential');
       console.log('Invalid Credential');
     } else {
-      window.alert('Sign in Successfully');
+      toast.success('Sign in Successfully');
       console.log('Sign in Successfully');
       dispatch({
         type: 'LOGIN_STATUS',
