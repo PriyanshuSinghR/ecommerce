@@ -47,16 +47,7 @@ const reduceShop = (state, action) => {
         ...state,
         isLoggedIn: action.payload || !state.isLoggedIn,
       };
-    case 'ADD_USER':
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case 'REMOVE_USER':
-      return {
-        ...state,
-        user: {},
-      };
+
     case 'FILTER_BY_PRICE':
       return {
         ...state,
@@ -127,7 +118,6 @@ export function CartProvider({ children }) {
     rating: '4',
     allCategories: [],
     isLoggedIn: false,
-    user: {},
     cart: [],
     fav: [],
     allAddresses: [],
@@ -294,6 +284,10 @@ export function CartProvider({ children }) {
         type: 'UPDATE_CART',
         payload: response.data.cart,
       });
+      dispatch({
+        type: 'LOGIN_STATUS',
+        payload: true,
+      });
       toast.success('Added to cart');
       console.log(response);
     } catch (error) {
@@ -319,6 +313,10 @@ export function CartProvider({ children }) {
       dispatch({
         type: 'UPDATE_FAV',
         payload: response.data.wishlist,
+      });
+      dispatch({
+        type: 'LOGIN_STATUS',
+        payload: true,
       });
       toast.success('Added to Wishlist');
       console.log(response.data.wishlist);

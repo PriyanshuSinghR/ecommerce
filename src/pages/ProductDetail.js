@@ -10,13 +10,13 @@ export const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const { productId } = useParams();
   const getToProduct = async () => {
-    dispatch({
-      type: 'CHANGE_LOADING',
-      payload: true,
-    });
     try {
+      dispatch({
+        type: 'CHANGE_LOADING',
+        payload: true,
+      });
       const response = await axios.get(`/api/products/${productId}`);
-      setProduct(await response.data.product);
+      setProduct(response.data.product);
       // dispatch({
       //   type: 'ADD_PRODUCT',
       //   payload: response.data.product,

@@ -6,14 +6,13 @@ import { toast } from 'react-toastify';
 export const UserProfile = () => {
   const history = useNavigate();
   const { state, dispatch } = useContext(CartContext);
-  console.log(state.user);
-  const { firstName, lastName, email } = state.user;
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { firstName, lastName, email } = user;
   const logoutHandler = () => {
     localStorage.removeItem('tokenuser');
+    localStorage.removeItem('user');
     toast.success('Logout Successfully');
-    dispatch({
-      type: 'REMOVE_USER',
-    });
+
     dispatch({
       type: 'LOGIN_STATUS',
       payload: false,
