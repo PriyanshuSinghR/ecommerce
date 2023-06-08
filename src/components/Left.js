@@ -7,10 +7,9 @@ export const Left = ({ login }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    phone: '',
-    college: '',
     password: '',
   });
 
@@ -26,20 +25,20 @@ export const Left = ({ login }) => {
 
   const postData = async (e) => {
     e.preventDefault();
-    const { firstName, lastName, email, password } = user;
+    const { email, password, firstName, lastName } = user;
+    console.log(user);
     const res = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify({ firstName, lastName, email, password }),
+      body: JSON.stringify({ email, password, firstName, lastName }),
     });
 
     const data = await res.json();
     localStorage.setItem('tokenuser', data.encodedToken);
 
-    console.log(res);
-    console.log(state.user);
+    console.log(data.createdUser);
     if (res.status === 422 || !data) {
       toast.error('Invalid Registration');
       console.log('Invalid Registration');
@@ -50,10 +49,7 @@ export const Left = ({ login }) => {
         type: 'LOGIN_STATUS',
         payload: true,
       });
-      dispatch({
-        type: 'ADD_USER',
-        payload: data.foundUser,
-      });
+      localStorage.setItem('user', JSON.stringify(data.createdUser));
       navigate('/profile');
     }
   };
@@ -69,7 +65,7 @@ export const Left = ({ login }) => {
     });
     const data = await res.json();
     localStorage.setItem('tokenuser', data.encodedToken);
-
+    console.log(data.foundUser);
     if (res.status === 404 || res.status === 401 || !data) {
       toast.error('Invalid Credential');
       console.log('Invalid Credential');
@@ -205,8 +201,8 @@ export const Left = ({ login }) => {
               type="text"
               required
               placeholder="FIRSTNAME"
-              name="first name"
-              id="first-name"
+              name="firstName"
+              id="firstName"
               value={user.firstName}
               onChange={handleInputs}
               style={{
@@ -223,8 +219,8 @@ export const Left = ({ login }) => {
               type="text"
               required
               placeholder="LASTNAME"
-              name="last name"
-              id="last-name"
+              name="lastName"
+              id="lastName"
               value={user.lastName}
               onChange={handleInputs}
               style={{

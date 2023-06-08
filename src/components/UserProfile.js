@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 export const UserProfile = () => {
   const history = useNavigate();
-  const { state, dispatch } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
   const user = JSON.parse(localStorage.getItem('user'));
   const { firstName, lastName, email } = user;
   const logoutHandler = () => {
@@ -39,8 +39,6 @@ export const UserProfile = () => {
     });
     history('/');
   };
-
-  console.log(state.user);
 
   return (
     <div style={{ margin: '150px', minHeight: '40vh', color: 'white' }}>

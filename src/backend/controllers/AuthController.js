@@ -14,7 +14,9 @@ const sign = require('jwt-encode');
  * */
 
 export const signupHandler = function (schema, request) {
-  const { email, password, ...rest } = JSON.parse(request.requestBody);
+  const { email, password, firstName, lastName } = JSON.parse(
+    request.requestBody,
+  );
   try {
     // check if email already exists
     const foundUser = schema.users.findBy({ email });
@@ -32,9 +34,10 @@ export const signupHandler = function (schema, request) {
       _id,
       email,
       password,
+      firstName,
+      lastName,
       createdAt: formatDate(),
       updatedAt: formatDate(),
-      ...rest,
       cart: [],
       wishlist: [],
     };
@@ -60,7 +63,6 @@ export const signupHandler = function (schema, request) {
 
 export const loginHandler = function (schema, request) {
   const { email, password } = JSON.parse(request.requestBody);
-  console.log(JSON.parse(request.requestBody));
   try {
     const foundUser = schema.users.findBy({ email });
     if (!foundUser) {
