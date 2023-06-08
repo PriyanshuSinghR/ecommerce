@@ -72,6 +72,7 @@ export const Home = () => {
                   payload: [category.categoryName],
                 });
               }}
+              key={category._id}
             >
               <img
                 src={category.url}

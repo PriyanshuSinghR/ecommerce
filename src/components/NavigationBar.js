@@ -105,12 +105,12 @@ const NavigationBar = () => {
             textDecoration: 'none',
             marginRight: '20px',
           }}
-          onClick={() =>
-            dispatch({
-              type: 'CHANGE_LOADING',
-              payload: true,
-            })
-          }
+          // onClick={() =>
+          //   dispatch({
+          //     type: 'CHANGE_LOADING',
+          //     payload: true,
+          //   })
+          // }
         >
           <Icon icon="mdi:favorite" color="white" width="30" height="30" />
         </NavLink>

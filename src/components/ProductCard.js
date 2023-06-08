@@ -71,7 +71,7 @@ export const ProductCard = ({ product }) => {
                 margin: '10px 0px',
               }}
             >
-              {categoryName.toUpperCase()}
+              {categoryName?.toUpperCase()}
             </p>
             <p
               style={{

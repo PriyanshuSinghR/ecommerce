@@ -23,14 +23,7 @@ import { CartContext } from './context/CartContext';
 
 function App() {
   const { state, dispatch } = useContext(CartContext);
-  useEffect(() => {
-    // setTimeout(() => {
-    // }, 1000);
-    dispatch({
-      type: 'CHANGE_LOADING',
-      payload: false,
-    });
-  }, []);
+
   return (
     <div>
       <ToastContainer

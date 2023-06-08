@@ -8,9 +8,9 @@ export const CartContext = createContext();
 const reduceShop = (state, action) => {
   switch (action.type) {
     case 'SORT':
-      return { ...state, sortBy: action.payload, isLoading: true };
+      return { ...state, sortBy: action.payload };
     case 'SORT_RATING':
-      return { ...state, rating: action.payload, isLoading: true };
+      return { ...state, rating: action.payload };
     case 'ADD_ALL_PRODUCTS':
       return {
         ...state,
@@ -41,13 +41,11 @@ const reduceShop = (state, action) => {
       return {
         ...state,
         filterTag: action.payload,
-        isLoading: true,
       };
     case 'LOGIN_STATUS':
       return {
         ...state,
         isLoggedIn: action.payload || !state.isLoggedIn,
-        // isLoading: true,
       };
     case 'ADD_USER':
       return {
@@ -88,13 +86,11 @@ const reduceShop = (state, action) => {
       return {
         ...state,
         totalPrice: action.payload,
-        isLoading: true,
       };
     case 'ADD_PRODUCT':
       return {
         ...state,
         product: action.payload,
-        isLoading: true,
       };
     case 'CHANGE_LOADING':
       return {
@@ -141,10 +137,10 @@ export function CartProvider({ children }) {
   });
 
   const getProducts = async () => {
-    // dispatch({
-    //   type: 'CHANGE_LOADING',
-    //   payload: true,
-    // });
+    dispatch({
+      type: 'CHANGE_LOADING',
+      payload: true,
+    });
     try {
       const response = await fetch('api/products');
       if (response.status === 200) {
@@ -160,10 +156,25 @@ export function CartProvider({ children }) {
       }
     } catch (e) {
       console.error(e);
+      // dispatch({
+      //   type: 'CHANGE_LOADING',
+      //   payload: false,
+      // });
+    } finally {
+      setTimeout(() => {
+        dispatch({
+          type: 'CHANGE_LOADING',
+          payload: false,
+        });
+      }, 2000);
     }
   };
 
   const getCategories = async () => {
+    dispatch({
+      type: 'CHANGE_LOADING',
+      payload: true,
+    });
     try {
       const response = await fetch('/api/categories');
       if (response.status === 200) {
@@ -172,14 +183,33 @@ export function CartProvider({ children }) {
           type: 'ADD_CATEGORIES',
           payload: await categories.categories,
         });
+        // dispatch({
+        //   type: 'CHANGE_LOADING',
+        //   payload: false,
+        // });
       }
     } catch (e) {
       console.error(e);
+      // dispatch({
+      //   type: 'CHANGE_LOADING',
+      //   payload: false,
+      // });
+    } finally {
+      setTimeout(() => {
+        dispatch({
+          type: 'CHANGE_LOADING',
+          payload: false,
+        });
+      }, 2000);
     }
   };
 
   const getToCart = async () => {
     const encodedToken = localStorage.getItem('tokenuser');
+    dispatch({
+      type: 'CHANGE_LOADING',
+      payload: true,
+    });
     try {
       const response = await axios.get(`/api/user/cart`, {
         headers: {
@@ -190,13 +220,32 @@ export function CartProvider({ children }) {
         type: 'UPDATE_CART',
         payload: response.data.cart,
       });
-      console.log(response);
+      // dispatch({
+      //   type: 'CHANGE_LOADING',
+      //   payload: false,
+      // });
+      console.log(response.data.cart);
     } catch (error) {
       console.log(error);
+      // dispatch({
+      //   type: 'CHANGE_LOADING',
+      //   payload: false,
+      // });
+    } finally {
+      setTimeout(() => {
+        dispatch({
+          type: 'CHANGE_LOADING',
+          payload: false,
+        });
+      }, 2000);
     }
   };
   const getToFav = async () => {
     const encodedToken = localStorage.getItem('tokenuser');
+    dispatch({
+      type: 'CHANGE_LOADING',
+      payload: true,
+    });
     try {
       const response = await axios.get(`/api/user/wishlist`, {
         headers: {
@@ -207,14 +256,30 @@ export function CartProvider({ children }) {
         type: 'UPDATE_FAV',
         payload: response.data.wishlist,
       });
-      console.log(response);
+      // dispatch({
+      //   type: 'CHANGE_LOADING',
+      //   payload: false,
+      // });
+      console.log(response.data.wishlist);
     } catch (error) {
       console.log(error);
+      // dispatch({
+      //   type: 'CHANGE_LOADING',
+      //   payload: false,
+      // });
+    } finally {
+      setTimeout(() => {
+        dispatch({
+          type: 'CHANGE_LOADING',
+          payload: false,
+        });
+      }, 2000);
     }
   };
 
   const addToCart = async (product) => {
     const encodedToken = localStorage.getItem('tokenuser');
+
     try {
       const response = await axios.post(
         `/api/user/cart`,
@@ -284,19 +349,6 @@ export function CartProvider({ children }) {
     }
   };
 
-  const getToProduct = async (productId) => {
-    try {
-      const response = await axios.get(`/api/products/${productId}`);
-      dispatch({
-        type: 'ADD_PRODUCT',
-        payload: response.data.product,
-      });
-      console.log(response.data.product);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     getProducts();
     getCategories();
@@ -311,7 +363,6 @@ export function CartProvider({ children }) {
         addToCart,
         addToFav,
         removeFromFav,
-        getToProduct,
       }}
     >
       {children}

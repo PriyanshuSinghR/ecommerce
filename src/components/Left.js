@@ -301,6 +301,35 @@ export const Left = ({ login }) => {
             cursor: 'pointer',
           }}
           className="submit-button"
+          onClick={() => {
+            setEmail('overlord@gmail.com');
+            setPassword('smash');
+            setTimeout(() => {
+              loginUser();
+            }, 2000);
+          }}
+        >
+          Guest Login
+        </button>
+        <button
+          type="submit"
+          style={{
+            padding: '0.5rem',
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem',
+            marginTop: '2rem',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            backgroundColor: '#8B5CF6',
+            color: '#ffffff',
+            fontSize: '1.25rem',
+            lineHeight: '1.75rem',
+            fontWeight: '600',
+            borderRadius: '0.5rem',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          className="submit-button"
         >
           {login}
         </button>

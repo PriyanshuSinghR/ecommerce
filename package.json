@@ -39,9 +39,6 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0",
-    "@iconify/react": "^4.1.0",
-    "@locator/babel-jsx": "^0.2.4",
-    "@locator/runtime": "^0.2.4"
+    "@iconify/react": "^4.1.0"
   }
 }

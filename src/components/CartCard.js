@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { toast } from 'react-toastify';
 
 export const CartCard = ({ product }) => {
   const { _id, name, url, price, discountprice, categoryName, qty } = product;
@@ -20,6 +21,7 @@ export const CartCard = ({ product }) => {
         type: 'UPDATE_CART',
         payload: response.data.cart,
       });
+      toast.success('Removed from cart');
     } catch (error) {
       console.log(error);
     }
